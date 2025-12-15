@@ -1,0 +1,144 @@
+html{
+
+    scroll-behavior: smooth;
+}
+
+
+body{
+    background-color: black;
+    background-image: url(./background.svg);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+
+.constant{
+    position: sticky;
+    top: 0;
+    color: #4da3ff;
+    text-decoration: none;
+    padding: 15px 0;
+    text-align: center; 
+    z-index: 5000;
+    text-shadow: 0 0 10px;
+    font-size: 30px;
+    display: flex;
+    box-shadow: 0 0 10px;
+    border-radius: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(233, 232, 232);
+    
+}
+
+.pic{
+    
+    display: block;
+    width: 30%;
+}
+
+.text{
+    width: 70%;
+    display: flex;
+    gap: 5px;
+    justify-content: right;
+    align-items: center;
+    color: #4da3ff;
+    
+}
+.text:hover{
+    
+
+   color: #4da3ff; 
+}
+
+
+
+
+.chapters{
+
+
+    height: 200px;
+    width: 30%;
+    font-size: 25px;
+    gap: 7px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    background-image: linear-gradient(to left, #4da3ff, #1a1a1a);
+}
+.chapters:hover{
+    font-size: 27px;
+
+    color: #4da3ff;
+}
+
+.d{
+
+    align-items: center;
+    gap: 7px;
+    justify-content: center;
+}
+
+
+.size{
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    border-radius: 50%;
+    background-image: linear-gradient(to right, #000, #c9c9c9);
+    text-shadow: 0 0 25px;
+ }
+
+ .veiw{
+     width: 100%;
+     height: 120px;
+     gap: 5px;
+ }
+
+ #ahmed{
+    color: #c9c9c9;
+    font-size: 30px;
+}
+
+.botton-img{
+    
+    align-items: center;
+    border: none;
+    padding: 50px 50px;
+    width: 50px;
+    height: 50px;
+    text-shadow: 0 0 15px;
+    display: flex;
+    margin: 0;
+    gap: 5px;
+
+}
+*{
+    box-sizing: border-box;
+
+}
+img{
+    max-width: 95%;
+}
+
+
+.head{
+
+    color: #4da3ff;
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.p{
+    width: 80%;
+    height: 300px;
+    justify-content: center;
+    color: white;
+    background-color: #4da3ff;
+    position: relative;
+    cursor: pointer;
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>SZG</title>
+
+  <!-- CodeMirror CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/dracula.min.css">
+  <link rel="icon" type="image/x-icon" href="./logo.png">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000000;
+      color: #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background-image: url(./background.svg);
+    }
+
+
+
+    .container {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 50% 50%;
+    }
+
+    .editor {
+      display: flex;
+      flex-direction: column;
+      background: #020617;
+      border-right: 1px solid #1e293b;
+    }
+
+    .editor-header {
+      padding: 8px 12px;
+      font-size: 13px;
+      color: #94a3b8;
+      border-bottom: 1px solid #000000;
+      background: #000000;
+    }
+
+    .run-bar {
+      padding: 10px;
+      background: #020617;
+      border-top: 1px solid #1e293b;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    button {
+      padding: 10px 22px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #022c22;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 6px 20px rgba(34,197,94,0.35);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(34,197,94,0.45);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 12px rgba(34,197,94,0.3);
+    }
+
+    .output {
+      background: #020617;
+      padding: 14px;
+      overflow: auto;
+      font-family: Consolas, monospace;
+      white-space: pre-wrap;
+    }
+
+    .output::before {
+      content: "Console Output";
+      display: block;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: #94a3b8;
+      border-bottom: 1px dashed #1e293b;
+      padding-bottom: 6px;
+    }
+
+    .CodeMirror {
+      flex: 1;
+      font-size: 14px;
+      background: #020617;
+    }
+    .constant{
+      position: sticky;
+      top: 0;
+      color: #4da3ff;
+      text-decoration: none;
+      padding: 15px 0;
+      text-align: center; 
+      z-index: 5000;
+      text-shadow: 0 0 10px;
+      font-size: 30px;
+      display: flex;
+      box-shadow: 0 0 10px;
+      border-radius: 10px;
+      background-color: #000000;
+  }
+  .img{
+    justify-content: left;
+  }
+  .pic{
+    
+    display: block;
+    width: 30%;
+  }
+.text{
+    width: 70%;
+    display: flex;
+    gap: 5px;
+    justify-content: right;
+    align-items: center;
+    color: #4da3ff;
+  }
+  a{
+    text-decoration: none;
+    color: #fff;
+  }
+  a:hover{
+    
+    font-size: 35px;
+  }
+  </style>
+</head>
+<body>
+
+  <header class="constant">
+
+         
+    <div class="pic">
+  <img src="./drawing.html.png" width="200px" height="70px" class="img">
+ </div>
+ <div class="text">
+    <a href="./index.html">Home</a>&nbsp;&nbsp;&nbsp
+    <a href="./A.HTML">Chapters</a>&nbsp;&nbsp;&nbsp
+    <a href="./">downloud app</a>&nbsp;&nbsp;&nbsp
+ </div>
+   <br>
+   <hr>
+ 
+
+</header>
+
+<div class="container">
+  <div class="editor">
+    <div class="editor-header">JavaScript Editor</div>
+    <textarea id="code">
+</textarea>
+    <div class="run-bar">
+      <button id="runBtn">▶ Run</button>
+    </div>
+  </div>
+
+  <div class="output" id="output"></div>
+</div>
+
+<!-- CodeMirror JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/edit/closebrackets.min.js"></script>
+
+<script>
+  const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+    mode: 'javascript',
+    autoCloseBrackets: true,
+    theme: 'dracula',
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    viewportMargin: Infinity
+  });
+
+  const output = document.getElementById('output');
+
+  function runCode() {
+    output.textContent = '';
+
+    const sandboxConsole = {
+      log: (...args) => output.textContent += args.join(' ') + '\n',
+      error: (...args) => output.textContent += '❌ ' + args.join(' ') + '\n'
+    };
+
+    try {
+      const safeFunction = new Function('console', '"use strict";\n' + editor.getValue());
+      safeFunction(sandboxConsole);
+    } catch (e) {
+      output.textContent += '❌ خطأ: ' + e.message;
+    }
+  }
+
+  document.getElementById('runBtn').addEventListener('click', runCode);
+
+  editor.addKeyMap({
+    'Ctrl-Enter': runCode,
+    'Cmd-Enter': runCode
+  });
+</script>
+
+</body>
+</html>
